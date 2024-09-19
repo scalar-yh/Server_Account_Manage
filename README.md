@@ -9,3 +9,5 @@
 - JPA & MyBatis 3.x & Crypto
 - Thymeleaf & JavaScript(Jquery) & Bootstrap
 - MySQL(MariaDB) & IBM DB2
+## 프로젝트 기간
+- 2024.07.05 ~ 진행중
