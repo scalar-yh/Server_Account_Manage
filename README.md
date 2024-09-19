@@ -3,3 +3,9 @@
 1. 서버 계정 관리에 대한 필요성
 2. 서버 계정 관리는 오직 관리자 한정
 3. 기존 EXCEL SHEET 관리의 한계
+## 기술 스택
+- SpringBoot 3.x
+- SpringSecurity 6.x
+- JPA & MyBatis 3.x & Crypto
+- Thymeleaf & JavaScript(Jquery) & Bootstrap
+- MySQL(MariaDB) & IBM DB2
