@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "spring.db2.datasource.hikari.pool-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.db2.datasource.hikari.pool-name'"
+  },
+  {
+    "name": "spring.db2.datasource.hikari.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.db2.datasource.hikari.driver-class-name'"
+  },
+  {
+    "name": "spring.db2.datasource.hikari.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.db2.datasource.hikari.jdbc-url'"
+  },
+  {
+    "name": "spring.db2.datasource.hikari.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.db2.datasource.hikari.username'"
+  },
+  {
+    "name": "spring.db2.datasource.hikari.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.db2.datasource.hikari.password'"
+  },
+  {
+    "name": "spring.mybatis.config-location",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mybatis.config-location'"
+  }
+]}

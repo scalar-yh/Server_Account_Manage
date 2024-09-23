@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.server.account.MsSql.MapperPack.MSSQL_Mapper">
+	<!-- 매출 인터페이스 STOP 시 MMS 발송 -->
+	<insert id="MMS_SEND" parameterType="hashmap">
+	INSERT INTO shinsegae.shinsegae.SDK_MMS_SEND (
+      USER_ID
+      ,SCHEDULE_TYPE
+      ,SUBJECT
+      ,NOW_DATE
+      ,SEND_DATE
+      ,CALLBACK
+      ,DEST_COUNT
+      ,DEST_INFO
+      ,MMS_MSG
+      ,CONTENT_COUNT
+      ,SEND_STATUS
+      ,SEND_COUNT
+      ,SEND_RESULT
+      ,MSG_TYPE
+      )
+      VALUES(
+      '[계정관리OTP]'
+      ,0
+      ,'[계정관리OTP]'
+      , #{NOW_DATE}
+      , #{SEND_DATE}
+      ,'023170249' 
+      ,1
+      , #{TEL_NUM}
+      , #{MSG}
+      ,0
+      ,0
+      ,0
+      ,0
+      ,0
+      )
+	</insert>
+</mapper>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>계정관리시스템 서버추가</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akshar&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/Login-Form-Basic-icons.css">
+</head>
+
+<body style="width: auto;max-height: 1080px;background: url(&quot;/assets/img/menu-bar.jpg&quot;);background-size: cover; background-attachment: fixed;">
+    <nav class="navbar navbar-expand-md py-3" style="background: transparent;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/main">
+                <span class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shield-lock-fill" style="font-size: 35px;">
+                            <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"></path>
+                    </svg>
+                </span>
+                <span style="font-size: 25px;color: rgb(255,255,255);">계정관리시스템</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-3">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/main" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">시스템 계정 현황</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewpassword" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">패스워드 확인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/addsystem" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">시스템 추가</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">관리자 메뉴</a>
+                    </li>
+                    <li class="nav-item" style="margin-left: 220px;">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" style="color: #e37575;font-size: 15px;font-family: Akshar, sans-serif;font-weight: bold;">로그아웃</a>
+                    </li>
+                </ul>
+                <p id="text" style="color: white; font-size:18px; text-align: center; margin: 0px;margin-left: 60px;">
+                	<a th:text="|${UUID} 님 환영합니다|"></a>
+                </p>
+            </div>
+        </div>
+    </nav>
+    <div id="maincontent" style="margin-right: 20px;margin-left: 20px;height: 800px;background: #ffffff;">
+        <h5 style="background: #cccccc;padding-left: 20px;font-size: 15px;padding-bottom: 5px;padding-top: 5px;">시스템 추가</h5>
+        <div id="searchsection" style="position: relative;padding-top: 10px;">
+            <div id="searchoption" class="table-responsive" style="margin-left: 60px; margin-right: 60px;">
+                <form id="addsystem" method="post" action="/addsystem">
+                    <table class="table table-borderless" style="table-layout: fixed; text-align: center; border: solid 3px;">
+                        <thead class="table-primary">
+                            <tr>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 이름</a>
+                                    <input class="form-control" type="text" id="servername" style="width: 200px;display: inline-block;" name="servername" placeholder="서버 이름">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 IP</a>
+                                    <input class="form-control" type="text" id="serverip" style="width: 200px;display: inline-block;" name="serverip" placeholder="서버 IP">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 MAC</a>
+                                    <input class="form-control" type="text" id="servermac" style="width: 200px;display: inline-block;" name="servermac" placeholder="서버 MAC">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 종류</a>
+                                    <select class="form-select" name="serverst" style="width: 200px;display: inline-block;">
+                                        <optgroup label="가상VM / 물리">
+                                            <option value="가상 VM" selected>가상 VM</option>
+                                            <option value="물리">물리</option>
+                                        </optgroup>
+                                    </select>
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 OS</a>
+                                    <select class="form-select" name="serveros" style="width: 200px;display: inline-block; overflow: auto;">
+                                        <optgroup label="Windows Server 제품군">
+                                            <option value="Windows Server 2003" selected>윈도우 서버 2003</option>
+                                            <option value="Windows Server 2008">윈도우 서버 2008</option>
+                                            <option value="Windows Server 2008 R2">윈도우 서버 2008 R2</option>
+                                            <option value="Windows Server 2012">윈도우 서버 2012</option>
+                                            <option value="Windows Server 2012 R2">윈도우 서버 2012 R2</option>
+                                            <option value="Windows Server 2016">윈도우 서버 2016</option>
+                                            <option value="Windows Server 2019">윈도우 서버 2019</option>
+                                            <option value="Windows Server 2022">윈도우 서버 2022</option>
+                                        </optgroup>
+                                        <optgroup label="Windows 제품군">
+                                            <option value="Windows 200X 버전">윈도우 200X 버전</option>
+                                            <option value="Windows 7">윈도우 7</option>
+                                            <option value="Windows Vista">윈도우 Vista</option>
+                                            <option value="Windows 8">윈도우 8</option>
+                                            <option value="Windows 10">윈도우 10</option>
+                                            <option value="Windows 11">윈도우 11</option>
+                                        </optgroup>
+                                        <optgroup label="Linux 제품군">
+                                            <option value="CentOS 7">CentOS 7</option>
+                                            <option value="CentOS 8">CentOS 8</option>
+                                            <option value="CentOS 9">CentOS 9</option>
+                                            <option value="RedHat 7.X">RedHat 7.X</option>
+                                            <option value="RedHat 8.X">RedHat 8.X</option>
+                                            <option value="RedHat 9.X">RedHat 9.X</option>
+                                        </optgroup>
+                                        <optgroup label="Ubuntu 제품군">
+                                            <option value="Ubuntu 20.04 LTS">Ubuntu 20.04LTS</option>
+                                            <option value="Ubuntu 22.04 LTS">Ubuntu 22.04LTS</option>
+                                            <option value="Ubuntu 24.04 LTS">Ubuntu 24.04LTS</option>
+                                        </optgroup>
+                                    </select>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 모델</a>
+                                    <input class="form-control" type="text" id="servermodel" style="width: 200px;display: inline-block;" name="servermodel" placeholder="서버 모델">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 SN</a>
+                                    <input class="form-control" type="text" id="serversn" style="width: 200px;display: inline-block;" name="serversn" placeholder="서버 SN">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 관리</a>
+                                    <input class="form-control" type="text" id="serveradmin" style="width: 200px;display: inline-block;" name="serveradmin" placeholder="서버 관리자">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 ID</a>
+                                    <input class="form-control" type="text" id="serverid" style="width: 200px;display: inline-block;" name="serverid" placeholder="서버 ID">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>서버 PW</a>
+                                    <input class="form-control" type="password" id="serverpw" style="width: 200px;display: inline-block;" name="serverpw" placeholder="서버 PW">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-primary">
+                            <tr>
+                                <td colspan="5" style="float:center; padding-top: 15px;">
+                                    <input class="btn btn-primary" type="submit" id="saveaddsystem" value="저장" style="width: 100px; float:center;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="responsetable" style="margin-right: 60px;margin-left: 60px;height: 480px;">
+            <div class="table-responsive" style="height: 480px;">
+                <table class="table table-bordered" style="text-align: center; overflow: auto;">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>MKSEQ</th>
+                            <th>추가 일자</th>
+                            <th>추가 시간</th>
+                            <th>서버 명</th>
+                            <th>서버 IP</th>
+                            <th>작업자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="serverhist : ${postsPages}">
+                            <td th:text="${serverhist.mkseq}"></td>
+                            <td th:text="${serverhist.adddate}"></td>
+                            <td th:text="${serverhist.addtime}"></td>
+                            <td th:text="${serverhist.servername}"></td>
+                            <td th:text="${serverhist.serverip}"></td>
+                            <td th:text="${serverhist.adduser}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="pagenationsbar" style="margin-right: 60px;margin-left: 60px;">
+            <nav id="pagenation" style="text-align: center;margin-right: 43.25%;margin-left: 43.25%;">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" aria-label="Previous" th:href="@{/addsystem(page=1)}"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/addsystem(page=1)}">1</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/addsystem(page=2)}">2</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/addsystem(page=3)}">3</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/addsystem(page=4)}">4</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/addsystem(page=5)}">5</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" th:href="@{/addsystem(page=6)}"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <footer class="text-center" style="background: transparent;margin-top: 0;">
+        <div class="container text-white py-4 py-lg-5">
+            <p class="mb-1" style="color: #ffffffc0;">Copyright © 2024 CompanyName</p>
+        </div>
+    </footer>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

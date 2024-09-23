@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <title>계정관리시스템</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="/assets/css/Navbar-With-Button-icons.css">
+</head>
+
+<body style="height: 1080px;">
+    <nav class="navbar navbar-expand-md py-3" style="background: url(&quot;/assets/img/menu-bar.jpg&quot;), rgb(239,250,255);margin-bottom: 30px;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="background: #b38e2f;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-command">
+                            <path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3M6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5zm4 1v4H6V6zm1-1V3.5A1.5 1.5 0 1 1 12.5 5zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11z"></path>
+                    </svg>
+                </span>
+                <span style="color: rgb(255,255,255);">계정관리시스템</span>
+            </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/main" style="color: rgb(255,255,255);">서버 계정 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mypage" style="color: rgb(255,255,255);">마이 페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup" style="color: rgb(255,255,255);">관리자 추가</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addsystem" style="color: rgb(255,255,255);">시스템 추가</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" style="color: rgba(255,255,255,0.65);">로그아웃</a>
+                    </li>
+                </ul>
+                <p id="text" style="color: white; font-size:18px; text-align: center; margin: 0px;margin-left: 60px;">
+                	<a th:text="|${UUID} 님 환영합니다|"></a>
+                </p>
+                <!-- <button class="btn btn-primary" id="refreshtok" type="button" style="margin: 0px;margin-left: 60px;">연장</button> -->
+            </div>
+        </div>
+    </nav>
+    <div id="maincontent" style="height: 800px;">
+        <div id="search-section" style="height: 200px;">
+            <h1 style="font-size: 20px;margin-left: 10px;margin-right: 10px;height: 30px;text-align: left;background: #e7e7e7;">My 서버 계정</h1>
+            <form id="search-info" style="height: 70px;margin-right: 30px;margin-left: 30px;border-width: 5px;border-style: solid;text-align: center;position: relative;">
+                <div id="search-id" style="height: 40px;position: relative;display: inline-block;margin-top: 11px;text-align: center;width: auto;margin-bottom: 11px;">
+                    <span style="height: 40px;position: relative;font-size: 20px;text-align: center;padding-top: 5px;padding-bottom: 8px;">시스템 ID</span>
+                    <input class="form-control" type="text" id="serverip" style="width: 120px;position: relative;height: 40px;display: inline-block;margin-left: 10px;" name="serverip">
+                    <input class="btn btn-primary" type="submit" id="searchbyid" style="height: 40px;padding: 0px;padding-top: 0px;padding-right: 15px;padding-bottom: 0px;padding-left: 15px;position: absolute;display: inline-block;margin-left: 10px;" value="검색">
+                </div>
+            </form>
+        </div>
+        <div id="table-content" style="height: 600px;">
+            <div class="table-responsive" style="height: 550px;margin-right: 30px;margin-left: 30px;overflow: auto;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>SID</th>
+                            <th>서버명</th>
+                            <th>서버 IP</th>
+                            <th>서버 MAC</th>
+                            <th>서버 구분</th>
+                            <th>서버 OS</th>
+                            <th>서버 계정 ID</th>
+                            <th>서버 계정 PW</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="serverlist : ${postsPages}">
+                            <td th:text="${serverlist.sid}"></td>
+                            <td th:text="${serverlist.servername}"></td>
+                            <td th:text="${serverlist.serverip}"></td>
+                            <td th:text="${serverlist.servermac}"></td>
+                            <td th:text="${serverlist.serverst}"></td>
+                            <td th:text="${serverlist.serveros}"></td>
+                            <td th:text="${serverlist.serverid}"></td>
+                        	<td>
+                            	<input class="form-control" type="text" id="serverpw" style="width: auto;position: relative;height: 30px; display: none;" name="serverpw" th:value="${serverlist.serverpw}">
+                            </td>
+                            <td>
+                            	<button class="btn btn-primary" id="show">PW 확인</button>
+                            </td>
+                            <td>
+                            	<button class="btn btn-primary" id="hidden">PW 숨기기</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav style="text-align: center;">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" aria-label="Previous" th:href="@{/main(page=1)}"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/main(page=1)}">1</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/main(page=2)}">2</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/main(page=3)}">3</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/main(page=4)}">4</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/main(page=5)}">5</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <footer class="text-center bg-dark" style="background: url(&quot;/assets/img/menu-bar.jpg&quot;);">
+        <div class="container text-white py-4 py-lg-5">
+            <p class="mb-1" style="color: #ffffffc0;">Copyright © 2024 JOSUNHOTELS &amp; RESORTS</p>
+        </div>
+    </footer>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+    $('#show').click(function(){
+    	if(confirm("관리자 외 패스워드를 볼 수 없습니다. 패스워드를 확인하시겠습니까?")==true) {
+    		$('#serverpw').css('display', '');	
+    	} else {
+    		return;
+    	}
+    });
+    $('#hidden').click(function(){
+    	$('#serverpw').css('display', 'none');
+    });
+    </script>
+</body>
+
+</html>

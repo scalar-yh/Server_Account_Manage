@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>관리자 추가</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akshar&amp;display=swap">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/Login-Form-Basic-icons.css">
+</head>
+
+<body style="width: auto;max-height: 1080px;background: url(&quot;/assets/img/menu-bar.jpg&quot;);background-size: cover; background-attachment: fixed;">
+    <nav class="navbar navbar-expand-md py-3" style="background: transparent;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/main">
+                <span class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shield-lock-fill" style="font-size: 35px;">
+                        <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"></path>
+                    </svg>
+                </span>
+                <span style="font-size: 25px;color: rgb(255,255,255);">계정관리시스템</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-3">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/main" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">시스템 계정 현황</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewpassword" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">패스워드 확인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addsystem" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">시스템 추가</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup" style="color: #ffffff;font-size: 15px;font-family: Akshar, sans-serif;">관리자 메뉴</a>
+                    </li>
+                    <li class="nav-item" style="margin-left: 220px;">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" style="color: #e37575;font-size: 15px;font-family: Akshar, sans-serif;font-weight: bold;">로그아웃</a>
+                    </li>
+                </ul>
+                <p id="text" style="color: white; font-size:18px; text-align: center; margin: 0px;margin-left: 60px;">
+                	<a th:text="|${UUID} 님 환영합니다|"></a>
+                </p>
+            </div>
+        </div>
+    </nav>
+    <div id="maincontent" style="margin-right: 20px;margin-left: 20px;height: 850px;background: #ffffff;">
+        <h5 style="background: #cccccc;padding-left: 20px;font-size: 15px;padding-bottom: 5px;padding-top: 5px;">관리자 추가</h5>
+        <div id="searchsection" style="position: relative;padding-top: 10px;">
+            <div id="searchoption" class="table-responsive" style="margin-left: 60px; margin-right: 60px;">
+                <form id="signup" action="/signup" method="post">
+                    <table class="table table-borderless" style="table-layout: fixed; text-align: center; border: solid 3px;">
+                        <thead class="table-primary">
+                            <tr>
+                            	<th style="float:center; padding-top: 15px;">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchshrs" style="width: 120px; float:center;">
+                                        <i class="fa fa-info-circle"></i>  사원 검색
+                                    </button>
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>이름</a>
+                                    <input class="form-control" type="text" id="kname" style="width: 200px;display: inline-block;" name="kname" placeholder="이름">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>사용자 ID</a>
+                                    <input class="form-control" type="text" id="username" style="width: 200px;display: inline-block;" name="username" placeholder="사용자 ID">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>이메일</a>
+                                    <input class="form-control" type="email" id="email" style="width: 200px;display: inline-block;" name="email" placeholder="이메일">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <a>패스워드</a>
+                                    <input class="form-control" type="password" id="password" style="width: 200px;display: inline-block;" name="password" placeholder="패스워드">
+                                </th>
+                                <th style="float:center; padding-top: 15px;">
+                                    <input class="form-control" type="password" id="password1" style="width: 200px;display: inline-block;" name="password1" placeholder="패스워드 재입력">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-primary">
+                            <tr>
+                                <td colspan="6" style="float:center; padding-top: 15px;">
+                                    <input class="btn btn-primary" type="submit" id="saveaddsystem" value="저장" style="width: 100px; float:center;">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="responsetable" style="margin-right: 60px;margin-left: 60px;height: 280px;"><div class="table-responsive" style="height: 280px;">
+            <table class="table table-bordered" style="text-align: center; overflow: auto;">
+                <thead class="table-info">
+                    <tr>
+                        <th>G-ID</th>
+                        <th>사용자 이름</th>
+                        <th>사용자 사원번호</th>
+                        <th>사용자 이메일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="adminlist : ${adminpages}">
+                        <td th:text="${adminlist.id}"></td>
+                        <td th:text="${adminlist.kname}"></td>
+                        <td th:text="${adminlist.username}"></td>
+                        <td th:text="${adminlist.email}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div id="pagenationsbar" style="margin-right: 60px;margin-left: 60px;">
+            <nav id="pagenation" style="text-align: center;margin-right: 43.25%;margin-left: 43.25%;">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" th:href="@{/signup(page=1)}">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/signup(page=1)}">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/signup(page=2)}">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/signup(page=3)}">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/signup(page=4)}">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/signup(page=5)}">5</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" href="#">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- 모달 -->
+            <div class="modal fade" id="searchshrs" tabindex="-1" aria-labelledby="searchshrs" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">SHRS 인사정보 검색</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- SHRS SEARCH -->
+                            <form id="shrs">
+                                <table class="table table-borderless" style="table-layout: fixed; text-align: center;">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>
+                                                <input class="form-control" type="text" id="searchsno" style="width: 200px;display: inline-block;" name="searchsno" placeholder="사원번호">
+                                            </th>
+                                            <th>
+                                                <input class="btn btn-primary" type="button" id="clickshrs" value="사원 검색" style="width: 100px; float:center;">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-bordered shrsli" style="table-layout: fixed; text-align: center;">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>사원 이름</th>
+                                            <th>사원 번호</th>
+                                            <th>부서 명</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr>
+                                    		<td>
+                                    			<input class="form-control" type="text" id="shrssno" style="width: 100%;display: inline-block;" name="shrssno" readonly>
+                                    		</td>
+                                    		<td>
+                                    			<input class="form-control" type="text" id="shrskname" style="width: 100%;display: inline-block;" name="shrskname" readonly>
+                                    		</td>
+                                    		<td>
+                                    			<input class="form-control" type="text" id="shrsdeptname" style="width: 100%;display: inline-block;" name="shrsdeptname" readonly>
+                                    		</td>
+                                    	</tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-primary" id="selectsno" data-bs-dismiss="modal">선택</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 모달 끝 -->
+    <footer class="text-center" style="background: transparent;margin-top: 0;">
+        <div class="container text-white py-4 py-lg-5">
+            <p class="mb-1" style="color: #ffffffc0;">Copyright © 2024 CompanyName</p>
+        </div>
+    </footer>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    $("#clickshrs").click(function(){
+    	var sno = $("input[name=searchsno]").val();
+    	$.ajax({
+            type:'get',
+            url: '/api/v1/searchshrs',
+            data: {
+            	"sno" : sno
+            },
+            dataType: 'json',
+            success: function(res){
+            	alert("조회 성공.");
+            	$(res).each(function(i) {
+            		$("input[name=shrssno]").val(res[i].SNO);
+            		$("input[name=shrskname]").val(res[i].KNAME);
+            		$("input[name=shrsdeptname]").val(res[i].DEPTNAME);
+                })
+            },
+            error:function(request,status,error){
+            	alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+            }
+        });
+    });
+  	
+    $('#selectsno').click(function(){
+    	var userid = $("input[name=shrssno]").val();
+    	var username = $("input[name=shrskname]").val();
+    	var userdept = $("input[name=shrsdeptname]").val();
+    	$("input[name=username]").val(userid);
+    	$("input[name=kname]").val(username);
+    });
+    </script>
+</body>
+
+</html>

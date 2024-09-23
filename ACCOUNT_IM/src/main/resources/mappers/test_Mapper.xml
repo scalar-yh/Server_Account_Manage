@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.server.account.Users.Mapper.MyBatis_USER_Mapper">
+
+	<select id="SQ_Maxvalue" resultType="Integer">
+	SELECT 
+		CASE WHEN MAX(SQ) IS NULL THEN 1 ELSE MAX(SQ) END AS SQ
+	FROM 
+		ACCOUNT_IM.LOGIN_HIST
+	</select>
+	
+	<insert id="In_LoginHist" parameterType="hashmap">
+	INSERT INTO
+		ACCOUNT_IM.LOGIN_HIST (SQ, USERNAME, LOGDATE, LOGINTYPE, LOGINIP)
+	VALUES
+		(#{SQ}, #{USERNAME}, #{LOGDATE}, #{LOGINTYPE}, #{LOGINIP})
+	</insert>
+	
+	<select id="searchshrs" parameterType="string" resultType="com.server.account.Users.SHRSVo">
+	SELECT 
+		A.SNO AS SNO, A.KNAME AS KNAME, A.DEPT_CODE AS DEPTCODE, B.DEPT_NAME AS DEPTNAME
+	FROM 
+		HURIS.PERINFO A
+	LEFT OUTER JOIN (
+		SELECT 
+			DEPT_CODE, DEPT_NAME
+		FROM 
+			HURIS.DEPTCODE 
+	) B
+	ON A.DEPT_CODE = B.DEPT_CODE
+	WHERE 
+		A.SNO = #{SNO}
+	</select>
+	
+	<select id="searchshrsAPI" parameterType="string" resultType="hashmap">
+	SELECT 
+		A.SNO AS SNO, A.KNAME AS KNAME, A.DEPT_CODE AS DEPTCODE, B.DEPT_NAME AS DEPTNAME
+	FROM 
+		HURIS.PERINFO A
+	LEFT OUTER JOIN (
+		SELECT 
+			DEPT_CODE, DEPT_NAME
+		FROM 
+			HURIS.DEPTCODE 
+	) B
+	ON A.DEPT_CODE = B.DEPT_CODE
+	WHERE 
+		A.SNO = #{SNO}
+	</select>
+
+</mapper>
